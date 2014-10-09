@@ -572,6 +572,12 @@ class GeneratableProperty {
             setterGen = new SetterGen.PatternSetterGen("$field.clear();\n$field.addAll($value);");
         } else if (style.equals("setClearPutAll")) {
             setterGen = new SetterGen.PatternSetterGen("$field.clear();\n$field.putAll($value);");
+        } else if (style.equals("observable")) {
+            if (isDerived()) {
+                setterGen = SetterGen.NoSetterGen.INSTANCE;
+            } else {
+                setterGen = SetterGen.ObservableSetterGen.PUBLIC;
+            }
         } else if (style.equals("smart")) {
             if (isDerived()) {
                 setterGen = SetterGen.NoSetterGen.INSTANCE;
